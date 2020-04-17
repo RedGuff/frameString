@@ -18,8 +18,9 @@ string repeatStringInt ( string pattern = "", int n = 0 ) // As the name says: s
     }
 }
 
-void frame1LineOfString(string text = "", string pattern = "#", int nbEmptyLinesBefore = 2, int nbEmptyLinesAfter = 2, int nbSpacesBefore = 2, int nbSpacesAfter = 2)
+string frame1LineOfString(string text = "", string pattern = "#", int nbEmptyLinesBefore = 2, int nbEmptyLinesAfter = 2, int nbSpacesBefore = 2, int nbSpacesAfter = 2)
 {
+    string result = "";
 // Sometimes, the pattern is not the perfect size. If needed, we must add some spaces after and/or before the text.
     if ((nbSpacesBefore + text.size() + nbSpacesAfter)%pattern.size()!=0) {
         nbSpacesBefore = nbSpacesBefore + pattern.size() - ((nbSpacesBefore + text.size() + nbSpacesAfter)%pattern.size())/2; // Half because spaces before and after, if needed.
@@ -29,23 +30,24 @@ void frame1LineOfString(string text = "", string pattern = "#", int nbEmptyLines
     }
     int nbPatternsWhenFullLine = (pattern.size() + nbSpacesBefore + text.size() + nbSpacesAfter + pattern.size())/(pattern.size()) ;
 // First Line:
-    cout << repeatStringInt( pattern, nbPatternsWhenFullLine) << endl;
+    result = repeatStringInt( pattern, nbPatternsWhenFullLine) + "\n";
 // EmptyLinesBefore:
     for (int a=1; a<nbEmptyLinesBefore+1; a++) {
-        cout << pattern << repeatStringInt(" ", nbSpacesBefore + text.size() + nbSpacesAfter) << pattern << endl;
+          result = result+ pattern + repeatStringInt(" ", nbSpacesBefore + text.size() + nbSpacesAfter) + pattern + "\n";
     }
 // Line :
-    cout << pattern << repeatStringInt(" ", nbSpacesBefore) << text << repeatStringInt(" ", nbSpacesAfter) << pattern << endl;
+      result = result + pattern + repeatStringInt(" ", nbSpacesBefore) + text + repeatStringInt(" ", nbSpacesAfter) + pattern + "\n";
 // EmptyLinesAfter:
     for (int a=1; a<nbEmptyLinesAfter + 1; a++) {
-        cout << pattern << repeatStringInt(" ", nbSpacesBefore + text.size() + nbSpacesAfter) << pattern << endl;
+    result = result + pattern + repeatStringInt(" ", nbSpacesBefore + text.size() + nbSpacesAfter) + pattern + "\n";
     }
 // LastLine:
-    cout << repeatStringInt( pattern, nbPatternsWhenFullLine) << endl;
+    result = result+ repeatStringInt( pattern, nbPatternsWhenFullLine) ;
+return result ;
 }
 
 int main()
 {
-    frame1LineOfString("Hello world!", "*");
+   cout << frame1LineOfString("Hello world!", "*");
     return 0;
 }
